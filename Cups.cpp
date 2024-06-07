@@ -79,6 +79,36 @@ public:
 int TeaCup::cleanedCount = 0;
 
 
+class BeerCup : public Cup {
+private:
+    int capacity;
+    mutable int currentVolume;
+
+public:
+    BeerCup(std::string s, std::string m, int q, int cap) : Cup(s, m, q), capacity(cap), currentVolume(0) {}
+
+    void fill() const override {
+        while(currentVolume < capacity) {
+            currentVolume += 50;
+            std::cout << "Adding 50 ml of beer. Current volume: " << currentVolume << " ml.\n";
+            if(currentVolume >= capacity) {
+                std::cout << "The cup now is full.Ready to be served.\n";
+                break;
+            }
+        }
+    }
+
+    void empty() {
+        currentVolume = 0;
+        std::cout << "Now, the cup is empty.\n";
+    }
+
+    void clean() const override {
+        std::cout << "Throwing away " << quantity << " beer cups made of " << material << " with size " << size << " because they're made of plastic.\n";
+    }
+};
+
+
 int main()
 {
     return 0;
