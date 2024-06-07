@@ -54,7 +54,30 @@ public:
 };
 
 int CoffeeCup::dishwasherLimit = 20;
-int CoffeeCup::dishwasherCount = 0;
+int CoffeeCup::dishwasherCount = 0
+
+
+class TeaCup : public Cup {
+private:
+    static int cleanedCount;
+    int cleaningTime;
+
+public:
+    TeaCup(std::string s, std::string m, int q, int time) : Cup(s, m, q), cleaningTime(time) {}
+
+    void fill() const override {
+        std::cout << "Filling a tea cup made of " << material << " with size " << size << ".\n";
+    }
+
+    void clean() const override {
+        std::cout << "Cleaning " << quantity << " tea cups made of " << material << " with size " << size << " by hand using hot water for " << cleaningTime << " minutes each.\n";
+        cleanedCount += quantity;
+        std::cout << "Total tea cups cleaned by hand: " << cleanedCount << std::endl;
+    }
+};
+
+int TeaCup::cleanedCount = 0;
+
 
 int main()
 {
