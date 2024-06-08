@@ -54,7 +54,7 @@ public:
 };
 
 int CoffeeCup::dishwasherLimit = 20;
-int CoffeeCup::dishwasherCount = 0
+int CoffeeCup::dishwasherCount = 0;
 
 
 class TeaCup : public Cup {
@@ -111,5 +111,23 @@ public:
 
 int main()
 {
+    CoffeeCup coffeeCup("Large", "Ceramic", 5);
+    TeaCup teaCup1("Medium", "Glass", 8, 5);
+    TeaCup teaCup2("Small", "Porcelain", 5, 3);
+    BeerCup beerCup("Small", "Plastic", 20, 250);
+
+    coffeeCup.fill();
+    coffeeCup.clean();
+
+    teaCup1.fill();
+    teaCup1.clean();
+
+    teaCup2.fill();
+    teaCup2.clean();
+
+    beerCup.fill();
+    beerCup.empty();
+    beerCup.clean();
+
     return 0;
 }
