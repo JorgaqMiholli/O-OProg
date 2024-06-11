@@ -8,7 +8,11 @@ protected:
     int quantity;
 
 public:
-    Cup(std::string s, std::string m, int q) : size(s), material(m), quantity(q) {}
+    Cup(std::string s, std::string m, int q) : size(s), material(m), quantity(q) {
+        if (s.empty()) throw std::invalid_argument("Size cannot be empty");
+        if (m.empty()) throw std::invalid_argument("Material cannot be empty");
+        if (q < 0) throw std::invalid_argument("Quantity cannot be negative");
+    }
 
     std::string getSize() const { return size; }
     std::string getMaterial() const { return material; }
@@ -51,6 +55,20 @@ public:
             std::cout << "Dishwasher is full! Please start the dishwasher." << std::endl;
         }
     }
+
+
+    static void resetDishwasherCount() {
+        dishwasherCount = 0;
+    }
+
+    static int getDishwasherCount() {
+        return dishwasherCount;
+    }
+
+    static int getDishwasherLimit() {
+        return dishwasherLimit;
+    }
+
 };
 
 int CoffeeCup::dishwasherLimit = 20;
@@ -63,7 +81,9 @@ private:
     int cleaningTime;
 
 public:
-    TeaCup(std::string s, std::string m, int q, int time) : Cup(s, m, q), cleaningTime(time) {}
+    TeaCup(std::string s, std::string m, int q, int time) : Cup(s, m, q), cleaningTime(time) {
+         if (time < 0) throw std::invalid_argument("Cleaning time cannot be negative");
+    }
 
     void fill() const override {
         std::cout << "Filling a tea cup made of " << material << " with size " << size << ".\n";
@@ -85,7 +105,9 @@ private:
     mutable int currentVolume;
 
 public:
-    BeerCup(std::string s, std::string m, int q, int cap) : Cup(s, m, q), capacity(cap), currentVolume(0) {}
+    BeerCup(std::string s, std::string m, int q, int cap) : Cup(s, m, q), capacity(cap), currentVolume(0) {
+        if (cap < 0) throw std::invalid_argument("Capacity cannot be negative");
+    }
 
     void fill() const override {
         while(currentVolume < capacity) {
